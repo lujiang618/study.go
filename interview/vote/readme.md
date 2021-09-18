@@ -8,3 +8,10 @@
 - [ ] redis 主从集群如何构建
 - [ ] 如何通过etcd构建一个redis集群
 - [ ] share nothing 的集群是什么样的？ 数据之间同步的问题如何解决？
+
+
+# 参考资料
+- [使用etcd实现动态分布式选主] (https://blog.csdn.net/liyunlong41/article/details/107619563)
+- [etcd使用](https://www.cnblogs.com/yjt1993/p/13183634.html)
+- [etcd-client v3 demo](https://github.com/etcd-io/etcd/blob/main/tests/integration/clientv3/examples/example_metrics_test.go)
+- [etcd](https://github.com/etcd-io/etcd)
