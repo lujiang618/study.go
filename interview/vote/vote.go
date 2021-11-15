@@ -4,15 +4,52 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
+func Vote() error {
+	cli, err := clientv3.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+	})
+
+	if err != nil {
+		return errors.Wrap(err, "create etcd client failed")
+	}
+
+	var redisCluster = []string{
+		"127.0.0.1:6360",
+		"127.0.0.1:6361",
+		"127.0.0.1:6362",
+	}
+
+	var wg *sync.WaitGroup
+
+	v := NewSelectMaster("redis.cluster", cli)
+	for _, redis := range redisCluster {
+		fmt.Printf("redis is :%s\n", redis)
+		v.Campaign(context.Background(), wg, redis)
+		time.Sleep(1 * time.Second)
+	}
+
+	for {
+		master := v.GetMaster()
+		fmt.Println("master is ", master)
+		time.Sleep(5 * time.Second)
+	}
+
+	wg.Wait()
+
+	return nil
+}
+
 func run() error {
 	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"127.0.0.1:49156"},
+		Endpoints:   []string{"127.0.0.1:2379"},
 		DialTimeout: 5 * time.Second,
 	})
 
@@ -42,7 +79,7 @@ func run() error {
 		}
 	}
 
-	res, err := cli.Get(context.TODO(), prefix+":2360")
+	res, err := cli.Get(context.TODO(), prefix, clientv3.WithPrefix())
 	if err != nil {
 		return errors.Wrap(err, "etcd get error")
 	}
