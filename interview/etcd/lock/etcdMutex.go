@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
@@ -61,4 +60,3 @@ func (em *EtcdMutex) UnLock() {
 	em.lease.Revoke(context.TODO(), em.leaseID)
 	fmt.Println("释放了锁")
 }
-
