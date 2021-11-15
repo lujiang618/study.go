@@ -1,4 +1,4 @@
-package main
+package vote
 
 // 参考资料：
 // - [golang etcd选主实验](https://blog.csdn.net/oqqYuan1234567890/article/details/105153665/)
@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"testing"
 	"time"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
@@ -18,7 +19,7 @@ var (
 	serverName = flag.String("name", "", "name of this server")
 )
 
-func main() {
+func TestSelect(t *testing.T) {
 	flag.Parse()
 	if len(*serverName) == 0 {
 		panic("server name empty")
