@@ -1,0 +1,69 @@
+Name: admin-api
+Host: 0.0.0.0
+Port: 8003
+AuthServerConf: 
+  Host: http://172.17.0.1:8001
+  AuthTokenUrl: /v1/auth/authorize
+  CreateTokenUrl: /v1/auth/token
+  DeleteTokenUrl: /v1/auth/token
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 172.17.0.1:2379
+    Key: user.rpc
+AppInfo:
+  id: "b1ba5eb6689b48ca8577d538e4902ce2"
+  secret: "f241b1b3511943ad83bba1abed59a4e2"
+  scope: 
+    - "all"
+  redirect: http://127.0.0.1:8003/v1/admin/auth_cb
+Telemetry:
+  Name: "admin.api"
+  Endpoint: "http://192.168.99.103:14268/api/traces"
+  Batcher: "jaeger"
+  Sampler: 1.0
+Log:
+  ServiceName: "admin.api"
+  Mode: file
+  Level: info
+  KeepDays: 0
+  Path: logs
+  StackCooldownMillis: 1000Name: admin-api
+Host: 0.0.0.0
+Port: 8003
+AuthServerConf: 
+  Host: http://172.17.0.1:8001
+  AuthTokenUrl: /v1/auth/authorize
+  CreateTokenUrl: /v1/auth/token
+  DeleteTokenUrl: /v1/auth/token
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 172.17.0.1:2379
+    Key: user.rpc
+AppInfo:
+  id: "b1ba5eb6689b48ca8577d538e4902ce2"
+  secret: "f241b1b3511943ad83bba1abed59a4e2"
+  scope: 
+    - "all"
+  redirect: http://127.0.0.1:8003/v1/admin/auth_cb
+Telemetry:
+  Name: "admin.api"
+  Endpoint: "http://192.168.99.103:14268/api/traces"
+  Batcher: "jaeger"
+  Sampler: 1.0
+Log:
+  ServiceName: "admin.api"
+  Mode: file
+  Level: info
+  KeepDays: 0
+  Path: logs
+  StackCooldownMillis: 1000
