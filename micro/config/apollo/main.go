@@ -31,7 +31,7 @@ func main() {
 		AppID:          "dxyp",
 		Cluster:        "DEV",
 		IP:             "http://127.0.0.1:8080",
-		NamespaceName:  "adminApi.yaml,common.yaml",
+		NamespaceName:  "adminApi.yaml",
 		IsBackupConfig: false,
 		Secret:         "ff4cb4e21dfe4076bfe20e9c723de087",
 	}
@@ -70,6 +70,9 @@ func main() {
 
 	}
 
+	config := client.GetConfig("adminApi.yaml")
+	host := config.GetStringValue("host", "none")
+	fmt.Println("host--------------------->", host)
 	// vp.SetConfigFile("./abc.yaml")
 
 	// if err := vp.ReadInConfig(); err != nil {
@@ -89,7 +92,7 @@ func main() {
 	// writeConfig(c.NamespaceName, client)
 }
 
-func writeConfig(namespace string, client *agollo.Client) {
+func writeConfig(namespace string, client agollo.Client) {
 	cache := client.GetConfigCache(namespace)
 	cache.Range(func(key, value interface{}) bool {
 		fmt.Println("key1 : ", key, ", value :", value)
