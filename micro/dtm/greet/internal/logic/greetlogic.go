@@ -15,7 +15,7 @@ import (
 	"github.com/dtm-labs/dtmgrpc"
 	"github.com/tal-tech/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/internal/status"
+	"google.golang.org/grpc/status"
 )
 
 type GreetLogic struct {
