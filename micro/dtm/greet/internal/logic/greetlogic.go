@@ -41,6 +41,7 @@ func (l *GreetLogic) Greet(req types.Request) (*types.Response, error) {
 	l.msg(busServer)
 	l.tcc(busServer)
 	l.saga(busServer)
+	l.xa(busServer)
 
 	return &types.Response{}, nil
 }
