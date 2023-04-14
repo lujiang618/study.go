@@ -18,6 +18,7 @@ import (
 	"unsafe"
 )
 
+// go tool cgo -godefs main.go 这个没啥卵用。。。
 // https://blog.51cto.com/u_15076224/4217851
 func main() {
 	var dir [10]byte
