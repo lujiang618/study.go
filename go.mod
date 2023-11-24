@@ -24,6 +24,7 @@ require (
 )
 
 require (
+	github.com/NVIDIA/go-nvml v0.12.0-1 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.18 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/buger/jsonparser v0.0.0-20181115193947-bf1c66bbce23 // indirect
