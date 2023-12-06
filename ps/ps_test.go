@@ -8,5 +8,5 @@ import (
 
 func TestVirtualMemory(t *testing.T) {
 	v, _ := mem.VirtualMemory()
-	t.Log(v.Available/1024/1024, v.Free/1024/1024, v.Total/1024/1024/1024)
+	t.Log(v.Available/1024/1024, v.Free/1024/1024, int(v.UsedPercent))
 }
