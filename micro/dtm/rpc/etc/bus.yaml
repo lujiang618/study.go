@@ -1,6 +1,0 @@
-Name: bus.rpc
-ListenOn: 127.0.0.1:8089
-Etcd:
-  Hosts:
-  - 127.0.0.1:2379
-  Key: bus.rpc

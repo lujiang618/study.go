@@ -1,9 +1,0 @@
-Name: greet-api
-Host: 0.0.0.0
-Port: 8888
-BusRpc:
-   Etcd: 
-    Hosts: # etcd的host， 值是一个数组
-      - 172.17.0.1:2379
-    Key: bus.rpc # 服务在etcd的key
-DtmServer: etcd://localhost:2379/dtmservice
