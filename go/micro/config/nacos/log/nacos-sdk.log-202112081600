@@ -1,0 +1,27 @@
+2021-12-08T16:49:29.153+0800	[31mERROR[0m	api</v1/cs/configs>,method:<GET>, params:<{"accessToken":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXYiLCJleHAiOjE2Mzg5NzEzNjl9.KE1ZcZH0f4-nhf1BHIX2XPLmwhxNKN_EQ88WE9ahSVQ","dataId":"test-data","group":"test-group","tenant":"74ab6cb4-2503-4c82-b966-75043f8ea730"}>, call domain error:<[404] config data not exist
+> , result:<config data not exist
+>
+2021-12-08T16:49:29.161+0800	[31mERROR[0m	api</v1/cs/configs>,method:<GET>, params:<{"accessToken":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXYiLCJleHAiOjE2Mzg5NzEzNjl9.KE1ZcZH0f4-nhf1BHIX2XPLmwhxNKN_EQ88WE9ahSVQ","dataId":"test-data","group":"test-group","tenant":"74ab6cb4-2503-4c82-b966-75043f8ea730"}>, call domain error:<[404] config data not exist
+> , result:<config data not exist
+>
+2021-12-08T16:49:29.165+0800	[31mERROR[0m	api</v1/cs/configs>,method:<GET>, params:<{"accessToken":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXYiLCJleHAiOjE2Mzg5NzEzNjl9.KE1ZcZH0f4-nhf1BHIX2XPLmwhxNKN_EQ88WE9ahSVQ","dataId":"test-data","group":"test-group","tenant":"74ab6cb4-2503-4c82-b966-75043f8ea730"}>, call domain error:<[404] config data not exist
+> , result:<config data not exist
+>
+2021-12-08T16:49:29.165+0800	[34mINFO[0m	get config from server error:[404] config data not exist
+ 
+2021-12-08T16:49:29.165+0800	[33mWARN[0m	[client.GetConfig] config not found, dataId: test-data, group: test-group, namespaceId: 74ab6cb4-2503-4c82-b966-75043f8ea730.
+2021-12-08T16:49:29.165+0800	[31mERROR[0m	[cache.ReadConfigFromFile] error: failed to read config cache file:./cache/config/test-data-2@@test-group@@74ab6cb4-2503-4c82-b966-75043f8ea730,err:open ./cache/config/test-data-2@@test-group@@74ab6cb4-2503-4c82-b966-75043f8ea730: no such file or directory 
+2021-12-08T16:49:29.175+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:test-data-2test-group74ab6cb4-2503-4c82-b966-75043f8ea730 tenant:74ab6cb4-2503-4c82-b966-75043f8ea730] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 Long-Pulling-Timeout-No-Hangup:true accessKey: secretKey:] 
+
+2021-12-08T16:49:29.185+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-12-08T16:49:29.195+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:test-data-2test-group74ab6cb4-2503-4c82-b966-75043f8ea730 tenant:74ab6cb4-2503-4c82-b966-75043f8ea730] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
+2021-12-08T16:49:58.700+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-12-08T16:49:58.710+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:test-data-2test-group74ab6cb4-2503-4c82-b966-75043f8ea730 tenant:74ab6cb4-2503-4c82-b966-75043f8ea730] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
+2021-12-08T16:50:28.213+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-12-08T16:50:28.224+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:test-data-2test-group74ab6cb4-2503-4c82-b966-75043f8ea730 tenant:74ab6cb4-2503-4c82-b966-75043f8ea730] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
+2021-12-08T16:50:57.727+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-12-08T16:50:57.738+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:test-data-2test-group74ab6cb4-2503-4c82-b966-75043f8ea730 tenant:74ab6cb4-2503-4c82-b966-75043f8ea730] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
