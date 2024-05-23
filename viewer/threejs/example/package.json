@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "study three",
+  "main": "main.js",
+  "scripts": {
+    "start": "vite build --watch --mode development"
+  },
+  "author": "gelu",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.164.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.3",
+    "rollup": "^2.68.0",
+    "rollup-watch": "^4.3.1",
+    "vite": "^5.2.11"
+  }
+}
