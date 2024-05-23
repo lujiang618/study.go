@@ -3,7 +3,8 @@ import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 
 // 透视相机 PerspectiveCamera
-// 视野角度 FOV
+// 视野角度 fov
+// 变焦镜头 zoom
 // 长宽比 aspect ratio
 // 近裁面 near
 // 远裁面 far
