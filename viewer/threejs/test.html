@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js Polygon Example</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    // 初始化场景、相机和渲染器
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // 定义点集
+    const points = [
+        new THREE.Vector3(1, 1, 0),
+        new THREE.Vector3(2, 1, 0),
+        new THREE.Vector3(2, 2, 0),
+        new THREE.Vector3(1, 2, 1),  // 修改这里以确保有一个不共面的点
+        // new THREE.Vector3(0.5, 1.5, 0),
+        new THREE.Vector3(1, 1, 0),
+    ];
+
+    // 检查点是否共线
+    function areCollinear(p1, p2, p3) {
+        const crossProduct = new THREE.Vector3().crossVectors(
+            new THREE.Vector3().subVectors(p2, p1),
+            new THREE.Vector3().subVectors(p3, p1)
+        );
+        return crossProduct.length() === 0;
+    }
+
+    // 检查点是否共面
+    function areCoplanar(points) {
+        if (points.length < 4) return true;
+        const normal = new THREE.Vector3().crossVectors(
+            new THREE.Vector3().subVectors(points[1], points[0]),
+            new THREE.Vector3().subVectors(points[2], points[0])
+        ).normalize();
+        for (let i = 3; i < points.length; i++) {
+            const v = new THREE.Vector3().subVectors(points[i], points[0]);
+            if (Math.abs(normal.dot(v)) > 1e-6) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 检查线段是否相交
+    function doLineSegmentsIntersect(p1, p2, q1, q2) {
+        function orientation(p, q, r) {
+            const val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+            if (val === 0) return 0;
+            return (val > 0) ? 1 : 2;
+        }
+
+        const o1 = orientation(p1, p2, q1);
+        const o2 = orientation(p1, p2, q2);
+        const o3 = orientation(q1, q2, p1);
+        const o4 = orientation(q1, q2, p2);
+
+        if (o1 !== o2 && o3 !== o4) return true;
+        return false;
+    }
+
+    // 检查点集是否有交叉
+    function hasIntersection(points) {
+        for (let i = 0; i < points.length - 1; i++) {
+            for (let j = i + 2; j < points.length - 1; j++) {
+                if (doLineSegmentsIntersect(points[i], points[i + 1], points[j], points[j + 1])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // 绘制多边形或三角形
+    function drawShape(points) {
+        let startNewShape = false;
+        let prevCoplanar = areCoplanar(points.slice(0, 3));
+        for (let i = 3; i < points.length; i++) {
+            if (!prevCoplanar || hasIntersection(points.slice(0, i))) {
+                drawPolygon(points.slice(0, i - 1));
+                drawTriangle(points[i - 1], points[i - 2], points[0]);
+                startNewShape = true;
+                break;
+            }
+            prevCoplanar = areCoplanar(points.slice(0, i + 1));
+        }
+
+        if (!startNewShape) {
+            drawPolygon(points);
+        }
+    }
+
+    function drawPolygon(points) {
+        const shape = new THREE.Shape(points.map(p => new THREE.Vector2(p.x, p.y)));
+        const geometry = new THREE.ShapeGeometry(shape);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+    }
+
+    function drawTriangle(p1, p2, p3) {
+        const geometry = new THREE.BufferGeometry().setFromPoints([p1, p2, p3]);
+        const material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+    }
+
+    // 绘制点集
+    drawShape(points);
+
+    // 设置相机位置并渲染场景
+    camera.position.z = 5;
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+</body>
+</html>
