@@ -7,6 +7,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
+// TODO: 鼠标缩放 旋转 pick
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 renderer.setClearColor("#222222");
