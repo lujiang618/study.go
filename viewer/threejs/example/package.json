@@ -4,17 +4,20 @@
   "description": "study three",
   "main": "main.js",
   "scripts": {
-    "start": "vite build --watch --mode development"
+    "start": "vite build --watch --mode development",
+    "preview": "vite preview",
+    "npx": "npx vite --config vite.config.js"
   },
   "author": "gelu",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.164.1"
+    "three": "^0.166.1"
   },
   "devDependencies": {
     "esbuild": "^0.21.3",
     "rollup": "^2.68.0",
     "rollup-watch": "^4.3.1",
-    "vite": "^5.2.11"
+    "vite": "^5.3.3",
+    "vite-plugin-top-level-await": "^1.4.1"
   }
 }
