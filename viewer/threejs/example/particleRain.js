@@ -34,7 +34,7 @@ function init() {
 
     scene = new THREE.Scene();
 
-    const dirLight = new THREE.DirectionalLight( 0xffffff, .5 );
+    const dirLight = new THREE.DirectionalLight( 0xff0000, .5 );
     dirLight.castShadow = true;
     dirLight.position.set( 3, 17, 17 );
     dirLight.castShadow = true;
@@ -345,7 +345,7 @@ function animate() {
 
     collisionBoxPos.set( collisionBoxPosUI.x, collisionBoxPosUI.y, - collisionBoxPosUI.z );
 
-    collisionBox.position.lerp( collisionBoxPos, 10 * delta );
+    collisionBox.position.lerp( collisionBoxPos, 100 * delta );
 
     // position
 
