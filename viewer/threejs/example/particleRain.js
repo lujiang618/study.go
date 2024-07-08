@@ -10,7 +10,7 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 
-const maxParticleCount = 50000;
+const maxParticleCount = 100000;
 const instanceCount = maxParticleCount / 2;
 
 let camera, scene, renderer;
@@ -28,14 +28,13 @@ function init() {
 
     const { innerWidth, innerHeight } = window;
 
-    camera = new THREE.PerspectiveCamera( 60, innerWidth / innerHeight, .1, 110 );
-    camera.position.set( 40, 8, 0 );
+    camera = new THREE.PerspectiveCamera( 90, innerWidth / innerHeight, .1, 1100 );
+    camera.position.set( 120, 8, 80 );
     camera.lookAt( 0, 0, 0 );
 
     scene = new THREE.Scene();
 
-    const dirLight = new THREE.DirectionalLight( 0xff0000, .5 );
-    dirLight.castShadow = true;
+    const dirLight = new THREE.DirectionalLight( 0xffff00, .5 );
     dirLight.position.set( 3, 17, 17 );
     dirLight.castShadow = true;
     dirLight.shadow.camera.near = 1;
@@ -51,9 +50,8 @@ function init() {
     scene.add( dirLight );
     scene.add( new THREE.AmbientLight( 0x111111 ) );
 
-    //
-
-    collisionCamera = new THREE.OrthographicCamera( - 50, 50, 50, - 50, .1, 50 );
+    // 碰撞检测相机
+    collisionCamera = new THREE.OrthographicCamera( - 50, 50, 50, - 50, 1, 50000 );
     collisionCamera.position.y = 50;
     collisionCamera.lookAt( 0, 0, 0 );
     collisionCamera.layers.disableAll();
@@ -92,13 +90,14 @@ function init() {
         const randY = instanceIndex.add( randUint() ).hash();
         const randZ = instanceIndex.add( randUint() ).hash();
 
-        position.x = randX.mul( 100 ).add( - 50 );
-        position.y = randY.mul( 25 );
+        // 控制雨滴的初始位置
+        position.x = randX.mul(100 ).add( - 50 );
+        position.y = randY.mul( 500 );
         position.z = randZ.mul( 100 ).add( - 50 );
 
-        velocity.y = randX.mul( - .04 ).add( - .2 );
+        velocity.y = randX.mul( - 0.8 ).add( - .2 ); // 雨滴的速度
 
-        rippleTime.x = 1000;
+        rippleTime.x = 10; // 雨滴波纹的初始时间
 
     } )().compute( maxParticleCount );
 
@@ -115,7 +114,8 @@ function init() {
 
         position.addAssign( velocity );
 
-        rippleTime.x = rippleTime.x.add( timerDelta().mul( 4 ) );
+
+        rippleTime.x = rippleTime.x.add( timerDelta().mul( 35 ) );
 
         //
 
@@ -129,9 +129,10 @@ function init() {
 
         const ripplePivotOffsetY = - .9;
 
+        // 落下的雨滴 重新掉落
         If( position.y.add( ripplePivotOffsetY ).lessThan( floorPosition ), () => {
 
-            position.y = 25;
+            position.y = 500;
 
             ripplePosition.xz = position.xz;
             ripplePosition.y = floorPosition;
@@ -153,7 +154,7 @@ function init() {
 
         If( ripplePosition.y.greaterThan( rippleFloorArea ), () => {
 
-            rippleTime.x = 1000;
+            rippleTime.x = 100;
 
         } );
 
@@ -226,7 +227,6 @@ function init() {
     rippleMaterial.transparent = true;
 
     // ripple geometry
-
     const surfaceRippleGeometry = new THREE.PlaneGeometry( 2.5, 2.5 );
     surfaceRippleGeometry.rotateX( - Math.PI / 2 );
 
@@ -241,26 +241,26 @@ function init() {
     rippleParticles.count = instanceCount;
     scene.add( rippleParticles );
 
-    // floor geometry
-
-    const floorGeometry = new THREE.PlaneGeometry( 1000, 1000 );
+    // floor geometry  脚下的板子
+    const floorGeometry = new THREE.PlaneGeometry( 18000, 18000);
     floorGeometry.rotateX( - Math.PI / 2 );
 
     const plane = new THREE.Mesh( floorGeometry, new THREE.MeshBasicMaterial( { color: 0x050505 } ) );
     scene.add( plane );
 
-    //
-
-    collisionBox = new THREE.Mesh( new THREE.BoxGeometry( 30, 1, 15 ), new THREE.MeshStandardMaterial() );
-    collisionBox.material.color.set( 0x333333 );
+    // 头顶的板子
+    // FIXME: 增大雨的范围， 移动板子到中央，碰撞会失效
+    collisionBox = new THREE.Mesh( new THREE.BoxGeometry( 38, 0.5, 30 ), new THREE.MeshStandardMaterial() );
+    collisionBox.material.color.set( 0xff33ff );
+    collisionBox.position.x = 0;
     collisionBox.position.y = 12;
+    collisionBox.position.z = 0;
     collisionBox.scale.x = 3.5;
     collisionBox.layers.enable( 1 );
     collisionBox.castShadow = true;
     scene.add( collisionBox );
 
-    //
-
+    // 猴子
     const loader = new THREE.BufferGeometryLoader();
     loader.load( 'models/json/suzanne_buffergeometry.json', function ( geometry ) {
 
@@ -270,9 +270,10 @@ function init() {
         monkey.receiveShadow = true;
         monkey.scale.setScalar( 5 );
         monkey.rotation.y = Math.PI / 2;
+        monkey.position.x= 0;
         monkey.position.y = 4.5;
+        monkey.position.z = 0;
         monkey.layers.enable( 1 ); // add to collision layer
-
         scene.add( monkey );
 
     } );
@@ -280,8 +281,6 @@ function init() {
     //
 
     clock = new THREE.Clock();
-
-    //
 
     renderer = new THREE.WebGPURenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
@@ -295,11 +294,10 @@ function init() {
 
     renderer.compute( computeInit );
 
-    //
-
+    // 控制器
     controls = new OrbitControls( camera, renderer.domElement );
     controls.minDistance = 5;
-    controls.maxDistance = 50;
+    controls.maxDistance = 500;
     controls.update();
 
     //
@@ -314,7 +312,7 @@ function init() {
     collisionBoxPosUI = new THREE.Vector3().copy( collisionBox.position );
     collisionBoxPos = new THREE.Vector3();
 
-    gui.add( collisionBoxPosUI, 'z', - 50, 50, .001 ).name( 'position' );
+    gui.add( collisionBoxPosUI, 'z', - 200, 200, .001 ).name( 'position' );
     gui.add( collisionBox.scale, 'x', .1, 3.5, 0.01 ).name( 'scale' );
     gui.add( rainParticles, 'count', 200, maxParticleCount, 1 ).name( 'drop count' ).onChange( ( v ) => rippleParticles.count = v );
 
@@ -335,16 +333,15 @@ function animate() {
 
     stats.update();
 
+    console.log(camera.position)
+
     const delta = clock.getDelta();
 
     if ( monkey ) {
-
         monkey.rotation.y += delta;
-
     }
 
     collisionBoxPos.set( collisionBoxPosUI.x, collisionBoxPosUI.y, - collisionBoxPosUI.z );
-
     collisionBox.position.lerp( collisionBoxPos, 100 * delta );
 
     // position
@@ -354,7 +351,6 @@ function animate() {
     renderer.render( scene, collisionCamera );
 
     // compute
-
     renderer.compute( computeParticles );
 
     // result
