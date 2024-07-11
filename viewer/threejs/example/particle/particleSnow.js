@@ -1,7 +1,7 @@
 
 
-import * as THREE from './webgpu/three.webgpu.js';
-import { tslFn, texture, vec3, pass, color, uint, viewportTopLeft, positionWorld, positionLocal, timerLocal, vec2, instanceIndex, storage, If } from './webgpu/three.webgpu.js';
+import * as THREE from '../webgpu/three.webgpu.js';
+import { tslFn, texture, vec3, pass, color, uint, viewportTopLeft, positionWorld, positionLocal, timerLocal, vec2, instanceIndex, storage, If } from '../webgpu/three.webgpu.js';
 
 import { TeapotGeometry } from 'three/addons/geometries/TeapotGeometry.js';
 

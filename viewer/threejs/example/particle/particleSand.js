@@ -1,4 +1,4 @@
-import * as THREE from "./webgpu/three.webgpu.js";
+import * as THREE from "../webgpu/three.webgpu.js";
 import {
     tslFn,
     uniform,
@@ -9,7 +9,7 @@ import {
     storage,
     SpriteNodeMaterial,
     If,
-} from "./webgpu/three.webgpu.js";
+} from "../webgpu/three.webgpu.js";
 
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -251,7 +251,7 @@ async function animate() {
     await renderer.renderAsync(scene, camera);
 
     // throttle the logging
-    
+
     if (renderer.hasFeature("timestamp-query")) {
         if (renderer.info.render.calls % 5 === 0) {
             timestamps.innerHTML = `

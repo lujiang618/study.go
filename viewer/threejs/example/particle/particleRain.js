@@ -1,5 +1,5 @@
-import * as THREE from './webgpu/three.webgpu.js';
-import { tslFn, texture, uv, uint, positionWorld, modelWorldMatrix, cameraViewMatrix, timerLocal, timerDelta, cameraProjectionMatrix, vec2, instanceIndex, positionGeometry, storage, MeshBasicNodeMaterial, If } from './webgpu/three.webgpu.js';
+import * as THREE from '../webgpu/three.webgpu.js';
+import { tslFn, texture, uv, uint, positionWorld, modelWorldMatrix, cameraViewMatrix, timerLocal, timerDelta, cameraProjectionMatrix, vec2, instanceIndex, positionGeometry, storage, MeshBasicNodeMaterial, If } from '../webgpu/three.webgpu.js';
 
 
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -92,7 +92,7 @@ function init() {
 
         // 控制雨滴的初始位置
         position.x = randX.mul(100 ).add( - 50 );
-        position.y = randY.mul( 500 );
+        position.y = randY.mul( 100 );
         position.z = randZ.mul( 100 ).add( - 50 );
 
         velocity.y = randX.mul( - 0.8 ).add( - .2 ); // 雨滴的速度
@@ -132,7 +132,7 @@ function init() {
         // 落下的雨滴 重新掉落
         If( position.y.add( ripplePivotOffsetY ).lessThan( floorPosition ), () => {
 
-            position.y = 500;
+            position.y = 100;
 
             ripplePosition.xz = position.xz;
             ripplePosition.y = floorPosition;
@@ -262,7 +262,7 @@ function init() {
 
     // 猴子
     const loader = new THREE.BufferGeometryLoader();
-    loader.load( 'models/json/suzanne_buffergeometry.json', function ( geometry ) {
+    loader.load( '../models/json/suzanne_buffergeometry.json', function ( geometry ) {
 
         geometry.computeVertexNormals();
 
@@ -333,7 +333,7 @@ function animate() {
 
     stats.update();
 
-    console.log(camera.position)
+    // console.log(camera.position)
 
     const delta = clock.getDelta();
 

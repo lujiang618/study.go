@@ -1,7 +1,7 @@
 
 
-import * as THREE from './webgpu/three.webgpu.js';
-import { range, texture, mix, uv, color, positionLocal, timerLocal } from './webgpu/three.webgpu.js';
+import * as THREE from '../webgpu/three.webgpu.js';
+import { range, texture, mix, uv, color, positionLocal, timerLocal } from '../webgpu/three.webgpu.js';
 
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 

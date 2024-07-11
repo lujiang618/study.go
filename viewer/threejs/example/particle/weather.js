@@ -55,13 +55,13 @@ const createParticles = (count, size, color) => {
 };
 
 // 创建雨、雪和雾的粒子系统
-const rainParticles = createParticles(100000, 0.3, 0xff0000);
+const rainParticles = createParticles(1000, 0.3, 0xff0000);
 scene.add(rainParticles);
 
-const snowParticles = createParticles(100000, 0.2, 0x0000FF);
+const snowParticles = createParticles(1000, 0.2, 0x0000FF);
 scene.add(snowParticles);
 
-const fogParticles = createParticles(50000, 0.2, 0x00ff00);
+const fogParticles = createParticles(500, 0.2, 0x00ff00);
 scene.add(fogParticles);
 
 // 更新粒子系统
