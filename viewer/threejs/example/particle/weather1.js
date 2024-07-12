@@ -86,13 +86,13 @@ const createParticles = (count, size, color) => {
 };
 
 // 创建雨、雪和雾的粒子系统
-const rainParticles = createParticles(1000000, 3, 0xAA0000);
+const rainParticles = createParticles(10000, 3, 0xAA0000);
 scene.add(rainParticles);
 
-const snowParticles = createParticles(1000000, 0.2, 0x00ff00);
+const snowParticles = createParticles(10000, 0.2, 0x00ff00);
 scene.add(snowParticles);
 
-const fogParticles = createParticles(50000, 1, 0x0000AA);
+const fogParticles = createParticles(500, 1, 0x0000AA);
 scene.add(fogParticles);
 
 let controls, stats;
@@ -122,7 +122,7 @@ const animate = () => {
     controls.update();
     stats.update();
 
-    console.log(camera.position)
+    // console.log(camera.position)
     requestAnimationFrame(animate);
 
     const time = performance.now() * 0.1;

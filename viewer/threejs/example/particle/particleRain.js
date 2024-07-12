@@ -250,7 +250,7 @@ function init() {
 
     // 头顶的板子
     // FIXME: 增大雨的范围， 移动板子到中央，碰撞会失效
-    collisionBox = new THREE.Mesh( new THREE.BoxGeometry( 38, 0.5, 30 ), new THREE.MeshStandardMaterial() );
+    collisionBox = new THREE.Mesh( new THREE.BoxGeometry( 18, 0.5, 30 ), new THREE.MeshStandardMaterial() );
     collisionBox.material.color.set( 0xff33ff );
     collisionBox.position.x = 0;
     collisionBox.position.y = 12;

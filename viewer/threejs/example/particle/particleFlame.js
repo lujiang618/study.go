@@ -26,7 +26,7 @@ function init() {
     // textures
 
     const textureLoader = new THREE.TextureLoader();
-    const map = textureLoader.load( 'textures/opengameart/smoke1.png' );
+    const map = textureLoader.load( '../textures/opengameart/smoke1.png' );
 
     // create nodes
 

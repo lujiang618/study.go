@@ -23,7 +23,7 @@ function init() {
 
     uniforms = {
 
-        pointTexture: { value: new THREE.TextureLoader().load( 'textures/sprites/spark1.png' ) }
+        pointTexture: { value: new THREE.TextureLoader().load( '../textures/sprites/spark1.png' ) }
 
     };
 

@@ -46,7 +46,7 @@ function init() {
 
     const loader = new OBJLoader();
 
-    loader.load("models/obj/male02/male02.obj", function (object) {
+    loader.load("../models/obj/male02/male02.obj", function (object) {
         const positions = combineBuffer(object, "position");
 
         createMesh(positions, scene, 4.05, -500, -350, 600, 0xff7744);
@@ -225,14 +225,14 @@ function render() {
         const initialPositions = data.mesh.geometry.attributes.initialPosition;
 
         const count = positions.count;
-        console.log(
-            data.delay,
-            data.speed,
-            data.start,
-            data.direction,
-            data.verticesDown,
-            data.verticesUp
-        );
+        // console.log(
+        //     data.delay,
+        //     data.speed,
+        //     data.start,
+        //     data.direction,
+        //     data.verticesDown,
+        //     data.verticesUp
+        // );
         if (data.start > 0) {
             data.start -= 1;
         } else {
@@ -247,7 +247,7 @@ function render() {
             const pz = positions.getZ(i);
 
             if (i == 1) {
-                console.log(px, py, pz);
+                // console.log(px, py, pz);
             }
             // falling down
             if (data.direction < 0) {

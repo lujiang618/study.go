@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite build --watch --mode development",
     "preview": "vite preview",
-    "npx": "npx vite --config vite.config.js"
+    "npx": "npx vite --config vite.config.js --host=0.0.0.0"
   },
   "author": "gelu",
   "license": "ISC",

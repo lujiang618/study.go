@@ -37,23 +37,23 @@ function init() {
     };
 
     const sprite1 = textureLoader.load(
-        "textures/sprites/snowflake1.png",
+        "../textures/sprites/snowflake1.png",
         assignSRGB
     );
     const sprite2 = textureLoader.load(
-        "textures/sprites/snowflake2.png",
+        "../textures/sprites/snowflake2.png",
         assignSRGB
     );
     const sprite3 = textureLoader.load(
-        "textures/sprites/snowflake3.png",
+        "../textures/sprites/snowflake3.png",
         assignSRGB
     );
     const sprite4 = textureLoader.load(
-        "textures/sprites/snowflake4.png",
+        "../textures/sprites/snowflake4.png",
         assignSRGB
     );
     const sprite5 = textureLoader.load(
-        "textures/sprites/snowflake5.png",
+        "t../extures/sprites/snowflake5.png",
         assignSRGB
     );
 
@@ -206,7 +206,7 @@ function render() {
 
         if (i===0) {
             // const angle = calculateAngleWithXYPlane(object.rotation.x, object.rotation.y, object.rotation.z)
-            console.log(i, object.rotation.y, object.rotation.z, object.rotation.x)
+            // console.log(i, object.rotation.y, object.rotation.z, object.rotation.x)
         }
 
     }
