@@ -27,22 +27,38 @@ func(int val = 1) 中的参数默认值是 1。因此，即使 func() 在 B 类�
 class A
 {
 public:
-    virtual void func(int val = 1) { std::cout << "A->" << val << std::endl; }
+    void func(int val = 1) { std::cout << "A->" << val << std::endl; }
     virtual void test() { func(); }
+private:
+    int i = 10;
 };
 
 class B : public A
 {
-private:
-    void func(int val = 0)
+public:
+    void func(int val)
     {
         std::cout << "B->" << val << std::endl;
     }
 };
 
+
+void callfunc(A* a)
+{
+    a->func();
+}
+
 int main(int argc, char *argv[])
 {
-    B *p = new B;
-    p->test();
+    A * a = new A();
+    callfunc(a);
+
+    B *b = new B();
+    callfunc(b);
+
+    std::cout<< "class A size:"<< sizeof(A)<<std::endl;
+    std::cout<< "class B size:"<< sizeof(B)<<std::endl;
+    // A *p = new B;
+    // p->test();
     return 0;
 }
