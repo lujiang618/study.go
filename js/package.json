@@ -1,0 +1,17 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "vite": "^5.3.3",
+    "vite-plugin-top-level-await": "^1.4.1"
+  },
+  "scripts": {
+    "start": "vite build --watch --mode development",
+    "preview": "vite preview",
+    "npx": "npx vite --config vite.config.js --host=0.0.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
