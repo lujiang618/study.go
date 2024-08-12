@@ -2,3 +2,5 @@
 
 micro/config/nacos/cache
 micro/config/nacos/log
+
+node_modules
