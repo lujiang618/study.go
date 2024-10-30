@@ -5,7 +5,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 
 // 背景色，目前为天蓝色
 const BackGroundColor = "#1e4877";
-const CloudCount = 10;
+const CloudCount = 30;
 // X轴和Y轴平移的随机参数
 const RandomPositionX = 80;
 const RandomPositionY = 120;
@@ -94,8 +94,8 @@ for (var i = 0; i < CloudCount; i++) {
     // Y轴想把云彩放在场景的偏下位置，所以都是负值
     // Z轴位移就是：当前第几个云*每个云所占的Z轴长度
     instanceGeometry.translate(
-        (Math.random() - 0.5 ) * i * RandomPositionX,
-        (Math.random() - 0.5 ) * i * RandomPositionY,
+        (Math.random() - 0.5 ) * 2 * i * RandomPositionX,
+        (Math.random() - 0.5 ) * 2 * i * RandomPositionY,
         i * perCloudZ
     );
 
