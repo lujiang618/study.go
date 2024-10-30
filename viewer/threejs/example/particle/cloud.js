@@ -22,12 +22,14 @@ camera.position.x = Math.floor(RandomPositionX / 2);
 // 最初在最远处
 camera.position.z = cameraPositionZ;
 
-// 线性雾，就是说雾化效果是随着距离线性增大的
-// 可以改变雾的颜色，发现远处的云的颜色有所变化
-const fog = new THREE.Fog(BackGroundColor, 1, 1000);
+// 把线性雾改成指数雾
+// THREE.FogExp2 的参数是：颜色和密度
+// 密度值通常很小，0.001 到 0.1 之间
+const fog = new THREE.FogExp2(BackGroundColor, 0.002);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(BackGroundColor);
+scene.fog = fog;  // 记得把雾添加到场景中
 
 const cloud = "../textures/cloud.png";
 const texture = new THREE.TextureLoader().load(cloud);
@@ -47,13 +49,12 @@ const vShader = `
 const fShader = `
   uniform sampler2D map;
   uniform vec3 fogColor;
-  uniform float fogNear;
-  uniform float fogFar;
+  uniform float fogDensity;
   varying vec2 vUv;
   void main()
   {
     float depth = gl_FragCoord.z / gl_FragCoord.w;
-    float fogFactor = smoothstep( fogNear, fogFar, depth );
+    float fogFactor = 1.0 - exp( - fogDensity * fogDensity * depth * depth );
     gl_FragColor = texture2D(map, vUv );
     gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
     gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
@@ -71,18 +72,16 @@ const material = new THREE.ShaderMaterial({
             type: "c",
             value: fog.color,
         },
-        fogNear: {
+        fogDensity: {
             type: "f",
-            value: fog.near,
-        },
-        fogFar: {
-            type: "f",
-            value: fog.far,
+            value: fog.density,
         },
     },
     vertexShader: vShader,
     fragmentShader: fShader,
     transparent: true,
+    depthWrite: false,
+    side: THREE.DoubleSide
 });
 
 
@@ -95,8 +94,8 @@ for (var i = 0; i < CloudCount; i++) {
     // Y轴想把云彩放在场景的偏下位置，所以都是负值
     // Z轴位移就是：当前第几个云*每个云所占的Z轴长度
     instanceGeometry.translate(
-        Math.random() * RandomPositionX,
-        -Math.random() * RandomPositionY,
+        (Math.random() - 0.5 ) * i * RandomPositionX,
+        (Math.random() - 0.5 ) * i * RandomPositionY,
         i * perCloudZ
     );
 
@@ -136,6 +135,9 @@ function animate() {
     // 从最远的z轴处开始往前一点一点的移动，达到穿越云层的目的
     // camera.position.z =
         // cameraPositionZ - (((Date.now() - StartTime) * 0.03) % cameraPositionZ);
+
+    // 添加以下代码使云朝向相机
+    mesh.quaternion.copy(camera.quaternion);
 
     renderer.render(scene, camera);
 }
