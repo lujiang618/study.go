@@ -19,4 +19,10 @@ func TestAlign16(t *testing.T) {
 	h := align(720, 8)
 
 	fmt.Printf("%d %d \n", w, h)
+
+	w = align(1872, 64)
+	h = align(720*4, 256)
+	fmt.Printf("%d %d \n", w, h)
+
+
 }
